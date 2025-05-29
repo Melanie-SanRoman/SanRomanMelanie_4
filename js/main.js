@@ -126,7 +126,7 @@ document.getElementById("btn_info_ok").addEventListener('click', () => {
         contentInfoModal.classList.remove('fadeOut');
     }, 400)
 
-    setTimeout(restartGame, 2000);
+    setTimeout(playGame, 2000);
 });
 
 // DECLARACION DE FUNCIONES
@@ -224,7 +224,7 @@ function playTimer() {
                 timerDiv.style.display = 'none';
                 document.body.classList.remove('paused');
                 startGame();
-            }, 2000);
+            }, 1000);
         }
     }, 1000);
 }
@@ -663,7 +663,9 @@ function resetGame() {
 
 // Funcion que reinicia los valores de: puntos, vidas y timer inicial
 function reiniciarValores() {
-    pPoints.innerHTML = pointsMin + ' points';
+    points = pointsMin
+    pPoints.innerHTML = points + ' points';
+    livesAct = livesMax
     divTotalLives.style.background = livesMap[livesMax];
     contTimer = contTimerMax;
 }

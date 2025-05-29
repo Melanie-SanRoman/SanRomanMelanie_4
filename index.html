@@ -20,6 +20,43 @@
     <!-- DIV CONTENEDOR PRINCIPAL, DELIMITA EL JUEGO -->
     <div id="contenedor">
 
+        <!-- MODAL DE INFORMACION -->
+        <div id="info_modal" class="modal">
+            <div id="content_info_modal" class="content_modal">
+                <h2>🐱 Controles del Personaje</h2>
+                <p>Presioná <strong>ESPACIO</strong> para saltar.</p>
+                <p>Presioná dos veces rápido para hacer <strong>doble salto</strong>.</p>
+
+                <h2>🐦 Puntos y Objetivos</h2>
+                <p>+100 puntos por cada pajarito atrapado.</p>
+                <p>+1 vida si agarrás un regalo volador 🎁.</p>
+                <p>-1 vida si chocás con un tronco 🌲.</p>
+
+                <h2>❤️ Vidas</h2>
+                <p>Empezás con <strong>5 vidas</strong>.</p>
+                <p>Si perdés todas, el juego termina.</p>
+                <p>Recuperá vidas con los regalos voladores.</p>
+
+                <h2>⏱️ Tiempo Límite</h2>
+                <p>Tenés <strong>2 minutos</strong> para sumar puntos.</p>
+                <p>El juego termina cuando el tiempo se agota.</p>
+
+                <h2>🧠 Consejos</h2>
+                <ul>
+                    <li>Usá el doble salto para esquivar y atrapar.</li>
+                    <li>Mantené la calma: ¡más precisión, más puntos!</li>
+                    <li>No dejes pasar los regalos. 💝</li>
+                </ul>
+
+                <h3>El juego se reiniciara automaticamente en 2 segundos</h3>
+
+                <!-- BOTONES enviar y cancelar -->
+                <section>
+                    <button id="btn_info_ok" class="btn_pixel"></button>
+                </section>
+            </div>
+        </div>
+
         <!-- PANTALLA INICIO -->
         <div id="div_start">
             <div id="img_start"></div>
@@ -107,43 +144,6 @@
         <!-- DIV DE INFORMACION EN PANTALLA DE JUEGO (BOTON)-->
         <div id="div_info">
             <button id="btn_info" class="btn_pixel"></button>
-        </div>
-
-        <!-- MODAL DE INFORMACION -->
-        <div id="info_modal" class="modal">
-            <div id="content_info_modal" class="content_modal">
-                <h2>🐱 Controles del Personaje</h2>
-                <p>Presioná <strong>ESPACIO</strong> para saltar.</p>
-                <p>Presioná dos veces rápido para hacer <strong>doble salto</strong>.</p>
-
-                <h2>🐦 Puntos y Objetivos</h2>
-                <p>+100 puntos por cada pajarito atrapado.</p>
-                <p>+1 vida si agarrás un regalo volador 🎁.</p>
-                <p>-1 vida si chocás con un tronco 🌲.</p>
-
-                <h2>❤️ Vidas</h2>
-                <p>Empezás con <strong>5 vidas</strong>.</p>
-                <p>Si perdés todas, el juego termina.</p>
-                <p>Recuperá vidas con los regalos voladores.</p>
-
-                <h2>⏱️ Tiempo Límite</h2>
-                <p>Tenés <strong>2 minutos</strong> para sumar puntos.</p>
-                <p>El juego termina cuando el tiempo se agota.</p>
-
-                <h2>🧠 Consejos</h2>
-                <ul>
-                    <li>Usá el doble salto para esquivar y atrapar.</li>
-                    <li>Mantené la calma: ¡más precisión, más puntos!</li>
-                    <li>No dejes pasar los regalos. 💝</li>
-                </ul>
-
-                <h3>El juego se reiniciara automaticamente en 2 segundos</h3>
-
-                <!-- BOTONES enviar y cancelar -->
-                <section>
-                    <button id="btn_info_ok" class="btn_pixel"></button>
-                </section>
-            </div>
         </div>
 
         <!-- OBJETIVO (BIRD / BONUS) -->
