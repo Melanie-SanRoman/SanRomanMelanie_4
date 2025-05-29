@@ -20,6 +20,11 @@ En este proyecto, controlás a un gato que corre por un escenario con efecto *pa
 - JavaScript (ES6)
 - Archivos de imagen y hojas de sprites para los elementos gráficos
 
+## 🖼 Vista previa de la pantalla principal
+
+> 📸 
+> ![Vista previa](images/pantalla_inicio.png)
+
 ## 🤝 Autor
 
 Trabajo realizado por **Melanie San Román** 💻  
