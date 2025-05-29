@@ -1,6 +1,6 @@
-# 🐱 Cat Runner - Proyecto de Juego con JavaScript
+# 🐱 Bird Catcher - Proyecto de Juego con JavaScript
 
-**Cat Runner** es un juego desarrollado en HTML, CSS y JavaScript puro, creado como práctica de desarrollo de aplicaciones interactivas.
+**Bird Catcher** es un juego desarrollado en HTML, CSS y JavaScript puro, creado como práctica de desarrollo de aplicaciones interactivas.
 
 En este proyecto, controlás a un gato que corre por un escenario con efecto *parallax*, esquivando obstáculos y recolectando objetivos o ítems de bonus. 
 
