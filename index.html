@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bird Catcher</title>
+    <link rel="icon" href="assets/characters/cat.png">
+
+    <!-- IMPORTACION DE FUENTES -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- DIV CONTENEDOR PRINCIPAL, DELIMITA EL JUEGO -->
+    <div id="contenedor">
+
+        <!-- PANTALLA INICIO -->
+        <div id="div_start">
+            <div id="img_start"></div>
+            <button id="btn_start" class="btn_control">Start <svg xmlns="http://www.w3.org/2000/svg" width="50"
+                    height="50" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+                </svg></button>
+        </div>
+
+        <!-- PANTALLA GAME OVER -->
+        <div id="div_game_over">
+            <div id="img_game_over"></div>
+            <div id="game_over_modal" class="modal">
+                <div id="content_game_over_modal" class="content_modal">
+                    <h2>😿 Te quedaste sin vidas</h2>
+                    <h3>Lograste conseguir:</h3>
+                    <h1 id="pts_conseguidos_game_over"></h1>
+                    <h3>¡Vuelve a intentarlo! -></h3>
+                </div>
+            </div>
+            <button id="btn_reset" class="btn_control"> Reset</button>
+        </div>
+
+        <!-- PANTALLA TIME OUT -->
+        <div id="div_time_out">
+            <div id="img_time_out"></div>
+            <div id="time_out_modal" class="modal">
+                <div id="content_time_out_modal" class="content_modal">
+                    <h2>😸 ¡Bien hecho!</h2>
+                    <h3>Lograste conseguir:</h3>
+                    <h1 id="pts_conseguidos_time_out"></h1>
+                    <h3>¿Quieres volverlo a intentarlo? -> </h3>
+                </div>
+            </div>
+            <button id="btn_again" class="btn_control">Again</button>
+        </div>
+
+        <!-- MANUAL DE JUEGO -->
+        <section id="instructions" class="manual">
+            <div id="instruction_content">
+                <!-- Acá se insertará el contenido dinámicamente -->
+            </div>
+            <div id="buttons_manual">
+                <button id="prev_btn" class="btn_pixel"></button>
+                <button id="btn_startGame"></button>
+                <button id="next_btn" class="btn_pixel"></button>
+            </div>
+        </section>
+
+        <!-- PARALLAX -->
+        <div id="parallax">
+            <div class="layer" id="layer1"></div>
+            <div class="layer" id="layer2"></div>
+            <div class="layer" id="layer3"></div>
+            <div class="layer" id="layer4"></div>
+            <div class="layer" id="layer5"></div>
+        </div>
+
+        <!-- TIMER INICIAL -->
+        <div id="div_timer">
+            <h1 id="timer_text"></h1>
+        </div>
+
+        <!-- MENU EN PANTALLA DE JUEGO -->
+        <div id="div_menu">
+
+            <section class="score">
+                <p id="pts">0 points</p>
+                <div id="lives"></div>
+            </section>
+
+            <section class="buttons_menu">
+                <button id="btn_pause" class="btn_pixel"></button>
+                <button id="btn_play" class="btn_pixel"></button>
+                <button id="btn_restart" class="btn_pixel"></button>
+            </section>
+
+            <section class="temp">
+                <div id="clock"></div>
+                <p id="time">02:00</pi>
+            </section>
+        </div>
+
+        <!-- DIV DE INFORMACION EN PANTALLA DE JUEGO (BOTON)-->
+        <div id="div_info">
+            <button id="btn_info" class="btn_pixel"></button>
+        </div>
+
+        <!-- MODAL DE INFORMACION -->
+        <div id="info_modal" class="modal">
+            <div id="content_info_modal" class="content_modal">
+                <h2>🐱 Controles del Personaje</h2>
+                <p>Presioná <strong>ESPACIO</strong> para saltar.</p>
+                <p>Presioná dos veces rápido para hacer <strong>doble salto</strong>.</p>
+
+                <h2>🐦 Puntos y Objetivos</h2>
+                <p>+100 puntos por cada pajarito atrapado.</p>
+                <p>+1 vida si agarrás un regalo volador 🎁.</p>
+                <p>-1 vida si chocás con un tronco 🌲.</p>
+
+                <h2>❤️ Vidas</h2>
+                <p>Empezás con <strong>5 vidas</strong>.</p>
+                <p>Si perdés todas, el juego termina.</p>
+                <p>Recuperá vidas con los regalos voladores.</p>
+
+                <h2>⏱️ Tiempo Límite</h2>
+                <p>Tenés <strong>2 minutos</strong> para sumar puntos.</p>
+                <p>El juego termina cuando el tiempo se agota.</p>
+
+                <h2>🧠 Consejos</h2>
+                <ul>
+                    <li>Usá el doble salto para esquivar y atrapar.</li>
+                    <li>Mantené la calma: ¡más precisión, más puntos!</li>
+                    <li>No dejes pasar los regalos. 💝</li>
+                </ul>
+
+                <h3>El juego se reiniciara automaticamente en 2 segundos</h3>
+
+                <!-- BOTONES enviar y cancelar -->
+                <section>
+                    <button id="btn_info_ok" class="btn_pixel"></button>
+                </section>
+            </div>
+        </div>
+
+        <!-- OBJETIVO (BIRD / BONUS) -->
+        <div id="objetivo"></div>
+
+        <!-- PERSONAJE (CAT) -->
+        <div id="cat" data-estado="idle" class="catIdle">
+            <div id="rect"></div>
+        </div>
+
+        <!-- BOTON RUN (NO HANILITADO) -->
+        <!-- <button id="btn_run">x2</button> -->
+
+        <!-- OBSTACULOS -->
+        <div id="obstaculo"></div>
+
+    </div>
+
+
+    <!-- IMPORTACION DE ARCHIVOS JAVASCRIPT -->
+
+    <script src="js/Personaje.js"></script>
+    <script src="js/Cat.js"></script>
+    <script src="js/Obstaculo.js"></script>
+    <script src="js/Objetivo.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
