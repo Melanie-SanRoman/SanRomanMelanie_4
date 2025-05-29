@@ -1,0 +1,972 @@
+/* VARIABLES */
+
+:root {
+    --primary_font: "Jersey 10", sans-serif;
+    --color_gold: rgb(247, 228, 125);
+}
+
+/* BODY CON FONDO SKY */
+body {
+    margin: 0;
+    overflow: hidden;
+    background-image: url("/assets/backgrounds/forest/PNG/Cartoon_Forest_BG_01/Layers/Sky.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* CONTENEDOR QUE DELIMITA EL JUEGO */
+#contenedor {
+    width: 800px;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #000;
+}
+
+/* TODO SOBRE LOS DIVS QUE REPRESENTAN PANTALLA DE START, GAME OVER Y TIME OUT (botones, imagenes, inf */
+
+/* Div's donde se ubican las imagenes de "Start", "Game Over" y "Time out" */
+#div_start,
+#div_game_over,
+#div_time_out {
+    display: none;
+    position: absolute;
+    overflow: hidden;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+}
+
+/* Al comenzar el div start se muestra */
+#div_start {
+    display: flex;
+}
+
+/* img's de "Start", "Game Over" y "Time out" */
+#img_start,
+#img_game_over,
+#img_time_out {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+}
+
+#img_start {
+    background-image: url("../assets/backgrounds/imgStart.jpg");
+    background-size: auto 100%;
+}
+
+#img_game_over {
+    background-image: url("../assets/backgrounds/imgGameOver.jpg");
+    background-size: auto 100%;
+}
+
+#img_time_out {
+    background-image: url("../assets/backgrounds/imgTimeOut.jpg");
+    background-size: auto 100%;
+}
+
+/* Clase de los botones "Start", "Reset", y "Again" */
+.btn_control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    padding-left: 15px;
+    bottom: 5%;
+    left: 78%;
+    z-index: 9;
+    width: 150px;
+    height: 60px;
+    font-family: var(--primary_font);
+    font-size: 2.5em;
+    border: none;
+    background: none;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #000;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: pulseBtnControl 2s infinite;
+    color: white;
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0 0 10px white;
+    }
+}
+
+/* KEYFRAMES DE LOS BOTONES DE CONTROL */
+
+@keyframes pulseBtnControl {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* TODO SOBRE EL MANUAL DE JUEGO */
+
+/* MANUAL DE USO (FONDO DEL BOSQUE) */
+.manual {
+    position: absolute;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: url(../assets/backgrounds/forest/PNG/Cartoon_Forest_BG_01/background.png);
+    background-size: auto 100%;
+    color: white;
+    font-family: var(--primary_font);
+    font-weight: 100;
+    font-size: 1.5em;
+    padding: 2em 2em 1em 2em;
+    z-index: 9;
+}
+
+/* INSTRUCCIONES QUE SE SITUAL DENTRO DEL MANUAL DE MANERA DINAMICA A TRAVES DE JAVASCRIPT */
+#instruction_content {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    box-sizing: border-box;
+    background: #1e1e1ea8;
+    width: 100%;
+    height: 80%;
+    padding: 0.5em;
+
+    h2 {
+        font-weight: 100;
+        font-size: 2em;
+        margin-top: 0px;
+    }
+
+    p,
+    li {
+        font-weight: 100;
+        font-size: 1.3em;
+        margin: 0px;
+    }
+}
+
+/* BOTONES DE PREV NEXT QUE MANEJAN LAS "PAGINAS" DEL MANUAL*/
+#buttons_manual {
+    display: flex;
+    justify-content: space-between;
+    width: 110%;
+    margin-top: 0.5em;
+
+    /* Tamaño de prev y next */
+    #prev_btn,
+    #next_btn {
+        width: 2.8rem;
+        height: 2.8rem;
+        border: none;
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+    }
+
+    /* Imagen de cada boton */
+    #prev_btn {
+        background: url(../assets/items/buttons/btn_prev.png);
+        background-size: auto 100%;
+    }
+
+    #next_btn {
+        background: url(../assets/items/buttons/btn_next.png);
+        background-size: auto 100%;
+    }
+
+    /* Boton de start animado y con imagen */
+    #btn_startGame {
+        display: none;
+        opacity: 0;
+        width: 150px;
+        height: 75px;
+        border: none;
+        box-shadow: 0 0 20px #000;
+        background: url("../assets/items/buttons/btnStartImg.png");
+        background-size: auto 100%;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 1s ease;
+        animation: pulse 2s infinite;
+        filter: brightness(1.3);
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+            box-shadow: 0 0 25px #fff;
+        }
+    }
+}
+
+
+/* DIV DONDE  SE UBICARA EL TIMER INICAL (se ubica en la mitad de la pantalla y genera una pelicula transparente) */
+#div_timer {
+    display: none;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    font-family: var(--primary_font);
+    color: white;
+    font-size: 10em;
+    background: rgba(0, 0, 0, 0.5);
+
+    /* Texto del timer (3, 2, 1, 0, Start) */
+    h1 {
+        margin: 0px;
+        animation: scaleUp 1s ease;
+    }
+}
+
+/* KEYFRAME DEL TIMER */
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+        color: var(--color_gold);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ANIMACIONES Y KEYFRAMES PARA OCULTAR O MOSTRAR LAS PANTALLAS DE JUEGO */
+.ocultar {
+    animation: ocultar 1s ease 1 forwards;
+}
+
+.mostrar {
+    animation: mostrar 1s ease 1 forwards;
+}
+
+@keyframes ocultar {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(10);
+        opacity: 0;
+    }
+}
+
+@keyframes mostrar {
+    0% {
+        transform: scale(10);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+/* TODO SOBRE PARALLAX Y LAYERS */
+
+/* CLASE PARALLAX DONDE SE UBICARA CADA LAYER */
+#parallax {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 800px;
+    height: 400px;
+    overflow: hidden;
+}
+
+/* CLASE LAYER, SE POSICIONAN CON RESPECTO AL PARALLAX */
+.layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+}
+
+/* CAPAZ EN ORDEN DE PROFUNDIDAD (mas lejor a mas cerca) */
+
+#layer1 {
+    background-image: url("/assets/backgrounds/forest/PNG/Cartoon_Forest_BG_01/Layers/Sky.png");
+    animation-duration: 100s;
+    z-index: 1;
+}
+
+#layer2 {
+    background-image: url("/assets/backgrounds/forest/PNG/Cartoon_Forest_BG_01/Layers/2.png");
+    animation-duration: 60s;
+    z-index: 2;
+}
+
+#layer3 {
+    background-image: url("/assets/backgrounds/forest/PNG/Cartoon_Forest_BG_01/Layers/3.png");
+    animation-duration: 40s;
+    z-index: 3;
+}
+
+#layer4 {
+    background-image: url("/assets/backgrounds/forest/PNG/Cartoon_Forest_BG_01/Layers/4.png");
+    animation-duration: 25s;
+    z-index: 4;
+}
+
+#layer5 {
+    background-image: url("/assets/backgrounds/forest/PNG/Cartoon_Forest_BG_01/Layers/5.png");
+    animation-duration: 15s;
+    z-index: 6;
+}
+
+/* ANIMACION Y KEYFRAMES QUE ACTIVA EL PARALLAX */
+.scroll {
+    animation: scroll 30s linear infinite;
+}
+
+@keyframes scroll {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: -1000px 0;
+        /* mueve 1000px hacia la izquierda */
+    }
+}
+
+
+/* TODO SOBRE EL MENU  EN LA PANTALLA DE JUEGO*/
+
+/* DIV DONDE SU UBICAN LOS PUNTOS, VIDAS, BOTONES Y TIEMPO DE JUEGO */
+#div_menu {
+    position: relative;
+    z-index: 7;
+    display: flex;
+    justify-content: space-between;
+
+    /* puntos y tiempo de juego */
+    p {
+        color: white;
+        margin: 0px;
+        font-family: var(--primary_font);
+    }
+
+    /* puntos y vidas */
+    .score {
+        margin-left: 0.5em;
+
+        #pts {
+            padding-left: 22px;
+            font-size: 2.3em;
+        }
+
+        #lives {
+            width: 225px;
+            height: 34px;
+            background: url("../assets/items/lives/fiveLives.png");
+        }
+    }
+
+    /* reloj y tiempo de juego */
+    .temp {
+        display: flex;
+        gap: 0.5em;
+        align-items: center;
+        margin-right: 0.5em;
+
+        #clock {
+            width: 2.8rem;
+            height: 2.8rem;
+            background: url(../assets/items/clock.png);
+            background-size: auto 100%;
+        }
+
+        #time {
+            padding-right: 22px;
+            font-size: 3em;
+            width: 4ch;
+        }
+    }
+
+    /* botones de pause, play y restart */
+    .buttons_menu {
+        display: flex;
+        gap: 0.5em;
+        align-items: center;
+
+        button {
+            width: 2.8rem;
+            height: 2.8rem;
+            border: none;
+        }
+
+        #btn_pause {
+            background: url(../assets/items/buttons/btn_pause.png);
+            background-size: auto 100%;
+        }
+
+        #btn_play {
+            background: url(../assets/items/buttons/btn_play.png);
+            background-size: auto 100%;
+        }
+
+        #btn_restart {
+            background: url(../assets/items/buttons/btn_restart.png);
+            background-size: auto 100%;
+        }
+    }
+}
+
+/* DIV  CON BOTON PARA VER MAS INFO (manual) EN LA PANTALLA DE JUEGO*/
+#div_info {
+    width: 8%;
+    position: relative;
+    z-index: 7;
+    display: flex;
+    justify-content: center;
+    bottom: -60%;
+    left: 90%;
+
+    /* Boton de info */
+    #btn_info {
+        border: none;
+        width: 2.8rem;
+        height: 2.8rem;
+        background: url(../assets/items/buttons/btn_info.png);
+        background-size: auto 100%;
+    }
+}
+
+/* ESTILO DE LOS BOTONES DE PIXEL */
+.btn_pixel {
+    transition: transform 0.1s ease, filter 0.1s ease;
+
+    &:active {
+        transform: scale(0.9);
+        filter: brightness(0.8);
+
+        &:hover {
+            filter: brightness(0.8);
+        }
+    }
+
+    &:hover {
+        filter: brightness(1.3);
+        cursor: pointer;
+    }
+}
+
+
+/* TODO SOBRE EL PERSONAJE PRINCIPAL CAT */
+
+/* PERSONAJE PRINCIPAL (tam y posicion */
+#cat {
+    width: 150px;
+    height: 130px;
+    position: absolute;
+    bottom: 2%;
+    z-index: 5;
+}
+
+/* POSICION QUE SE UTULIZARA PARA DETERMINAR LAS COLISIONES */
+#rect {
+    position: absolute;
+    top: 35%;
+    left: 15%;
+    width: 47%;
+    height: 40%;
+    z-index: 10;
+}
+
+/* CLASES QUE DETERMINAN LA IMAGEN DEL PERSONAJE Y LA ANIMACION CORRESPONDIENTE */
+.catIdle {
+    animation: walk 1s steps(7) infinite;
+    background: url("../assets/characters/cat/idle.png") repeat-x;
+}
+
+.catWalk {
+    animation: walk 0.7s steps(7) infinite;
+    background: url("../assets/characters/cat/walk.png") repeat-x;
+}
+
+.catRun {
+    animation: walk 0.5s steps(7) infinite;
+    background: url("../assets/characters/cat/run.png") repeat-x;
+}
+
+.catJump {
+    animation: jump 1000ms cubic-bezier(0, 0, .5, 1) forwards;
+    background: url("../assets/characters/cat/jump.png") repeat-x;
+}
+
+.catDoubleJump {
+    animation: doubleJump 1200ms cubic-bezier(0, 0, .5, 1) forwards;
+    background: url("../assets/characters/cat/jump.png") repeat-x;
+}
+
+.fall {
+    animation: fall 1200ms cubic-bezier(0, 0, .5, 1) forwards;
+}
+.doubleFall {
+    animation: doubleFall 1400ms cubic-bezier(0, 0, .5, 1) forwards;
+}
+
+.catAttack {
+    animation: attack 0.7s steps(3) infinite;
+    background: url("../assets/characters/cat/attack.png") repeat-x;
+}
+
+/*  KEYFRAMES DE LAS ACCIONES QUE PUEDE DESARROLLAR EL PERSONAJE */
+
+@keyframes walk {
+    0% {
+        background-position: 0
+    }
+
+    100% {
+        background-position: -1050px
+    }
+}
+
+@keyframes jump {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-70%);
+    }
+}
+
+@keyframes doubleJump {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-140%);
+    }
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-70%);
+    }
+
+    to {
+        transform: translateY(2%);
+    }
+}
+
+@keyframes doubleFall {
+    from {
+        transform: translateY(-140%);
+    }
+
+    to {
+        transform: translateY(2%);
+    }
+}
+
+@keyframes attack {
+    0% {
+        background-position: 0
+    }
+
+    100% {
+        background-position: -750px
+    }
+}
+
+
+/* CONTROLES */
+
+/* BOTON PARA CORRER (deshabilitado) */
+/* #btn_run {
+    position: absolute;
+    z-index: 8;
+} */
+
+
+/* TODO SOBRE OBJETIVOS Y OBSTACULOS */
+
+@keyframes generate {
+    from {
+        left: 100%;
+    }
+
+    to {
+        left: -20%;
+    }
+}
+
+/* CLASE PARA LOS TEXTOS FLOTADORES (+puntos, +vida, -vida */
+.floating {
+    position: absolute;
+    color: var(--color_gold);
+    font-size: 1.7em;
+    font-family: var(--primary_font);
+    animation: floatUp 2s ease-out forwards;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+}
+
+/* ANIMACION Y KEYFRAMES CUANDO AGARRA O PIERDE UNA VIDA */
+.lives_animation {
+    animation: pulseLives 1s ease;
+}
+
+@keyframes pulseLives {
+    0% {
+        transform: scale(1);
+        color: white;
+    }
+
+    50% {
+        transform: scale(0.8);
+        color: var(--color_gold);
+    }
+
+    100% {
+        transform: scale(1);
+        color: white;
+    }
+}
+
+/* ANIMACION Y KEYFRAMES CUANDO GANA PUNTOS */
+.pts_animation {
+    animation: pulse 1s ease;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        color: white;
+    }
+
+    50% {
+        transform: scale(1.2);
+        color: rgb(247, 228, 125);
+    }
+
+    100% {
+        transform: scale(1);
+        color: white;
+    }
+}
+
+/* ESTABLECE QUE LOS ELEMENTOS ESTAN CORRIENDO */
+.obstaculo,
+.objetivo,
+.bonus,
+.layer {
+    animation-play-state: running;
+}
+
+/* ESTABLECE QUE LOS ELEMENTOS ESTAN PAUSADOS */
+.paused .obstaculo,
+.paused .birdFly,
+.paused .bonus,
+.paused .layer {
+    animation-play-state: paused;
+}
+
+
+/* TODO SOBRE LOS OBJETIVOS BIRD Y BONUS */
+
+/* UBICACION DE LOS OBJETIVOS A RECOLECTAR (bird, bonus) */
+#objetivo {
+    position: absolute;
+    left: 80px;
+    z-index: 8;
+}
+
+/* CLASE PARA CUANDO EL PAJERO VUELA */
+.birdFly {
+    width: 30px;
+    height: 25px;
+    background: url("../assets/items/bird_blue.png") repeat-x;
+    animation:
+        bird 0.6s steps(4) infinite,
+        generate 5s forwards linear,
+        flotar 2s ease-in-out infinite;
+}
+
+/* CLASE PARA CUANDO SE CAZA AL PAJARO */
+.birdDead {
+    height: 25px;
+    width: 35px;
+    background: url("../assets/items/bird_dead.png") repeat-y;
+    animation:
+        birdDead 1s steps(2) infinite,
+        birdFall 1200ms cubic-bezier(0, 0, .5, 1) forwards;
+
+}
+
+/* CLASE PARA EL BONUS */
+.bonus {
+    width: 40px;
+    height: 40px;
+    background: url("../assets/items/pink_giftbox.png") repeat-x;
+    background-size: auto 100%;
+    animation:
+        generate 5s forwards linear,
+        flotar 2s ease-in-out infinite;
+}
+
+/* KEYFRAMES DEL PAJARO Y BONUS */
+
+@keyframes bird {
+    0% {
+        background-position: 0
+    }
+
+    100% {
+        background-position: -117px
+    }
+}
+
+@keyframes bonusAdd {
+    0% {
+        transform: scale(1)
+    }
+
+    50% {
+        transform: scale(1.4)
+    }
+
+    100% {
+        transform: scale(0)
+    }
+}
+
+@keyframes flotar {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+        /* sube */
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes birdDead {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 -60px;
+    }
+}
+
+@keyframes birdFall {
+    from {
+        transform: translateY(-70%);
+    }
+
+    to {
+        transform: translateY(20%);
+    }
+}
+
+.bonusAdd {
+    animation: bonusAdd 1s ease-in-out 1;
+}
+
+
+/* TODO SOBRE LOS OBSTACULOS */
+
+/* UBICACION DE LOS OBSTACULOS A ESQUIVAR*/
+.obstaculo {
+    position: absolute;
+    bottom: 4%;
+    width: 70px;
+    height: 70px;
+    left: 90px;
+    background: url("../assets/items/wood_pixelart.png") repeat-x;
+    animation: generate 5s forwards linear;
+    z-index: 5;
+}
+
+@keyframes fallObs {
+    from {
+        transform: translateY(-8%);
+    }
+
+    to {
+        transform: translateY(80%);
+    }
+}
+
+.fallObs {
+    animation: fallObs 1200ms cubic-bezier(0, 0, .5, 1) forwards;
+}
+
+
+/* TODO SOBRE MODAL */
+
+/* DA ESTILO AL DIV MODAL */
+.modal {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    margin: 2.5em 5em;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9;
+}
+
+/* DA ESTILO AL CONTENIDO DEL MODAL */
+.content_modal {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 70%;
+    height: 70%;
+    overflow-y: auto;
+    font-family: var(--primary_font);
+    color: white;
+}
+
+/* ESTILO DEL MODAL DE INFO */
+#content_info_modal {
+    h2 {
+        font-weight: 100;
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-weight: 100;
+        font-size: 1.3rem;
+    }
+
+    p,
+    li {
+        font-weight: 100;
+        font-size: 1.5rem;
+        margin: 0.2em;
+    }
+
+    section {
+        display: flex;
+        justify-content: center;
+
+        button {
+            background: url(../assets/items/buttons/btn_ok.png);
+            background-size: auto 100%;
+            width: 7rem;
+            height: 2.8rem;
+            border: none;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+/* ESTILO DEL MODAL DE TIME OUT Y GAME OVER */
+#content_time_out_modal,
+#content_game_over_modal {
+    align-items: center;
+
+    h1,
+    h2,
+    h3 {
+        font-weight: 100;
+        margin: 0px;
+    }
+
+    h1 {
+        font-size: 5rem;
+        margin: 0.1em 0em;
+    }
+
+    h2 {
+        font-size: 2.8rem;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+}
+
+/* ANIMACION DEL MODAL, cuando se abre y se cierra*/
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+.content_modal.fadeIn {
+    animation: fadeIn 1s ease forwards;
+}
+
+.content_modal.fadeOut {
+    animation: fadeOut 1s ease forwards;
+}
